@@ -1,0 +1,18 @@
+ .Dropdown {
+  position: relative;
+  width: 400px;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid black;
+ }
+
+ .Dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 400px;
+  padding: 10px;
+  text-align: center;
+  background-color: teal;
+  color: #fff;
+ }

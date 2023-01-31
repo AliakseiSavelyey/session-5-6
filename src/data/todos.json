@@ -1,0 +1,5 @@
+[
+      { "id": "id-1", "text": "выучить основы react", "completed": false },
+      { "id": "id-2", "text": "разобраться с react router", "completed": false },
+      { "id": "id-3", "text": "пережить redux", "completed": false }
+    ]
