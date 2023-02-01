@@ -70,18 +70,24 @@ class App extends Component {
     this.setState({ filter: e.currentTarget.value });
   };
 
-  render() {
-    const { todos, filter } = this.state;
+  getVisibleTodos = () => {
+    const normalizedFilter = this.state.filter.toLowerCase();
+    return this.state.todos.filter(todo =>
+      todo.text.toLowerCase().includes(normalizedFilter),
+    );
+  };
 
-    const completedTodos = todos.reduce(
+  calculateCompletedTodos = () => {
+    return this.state.todos.reduce(
       (acc, todo) => (todo.completed ? acc + 1 : acc),
       0,
     );
-    const normalizedFilter = this.state.filter.toLowerCase();
+  };
 
-    const visibleTodos = this.state.todos.filter(todo =>
-      todo.text.toLowerCase().includes(normalizedFilter),
-    );
+  render() {
+    const { todos, filter } = this.state;
+    const completedTodos = this.calculateCompletedTodos();
+    const visibleTodos = this.getVisibleTodos();
 
     return (
       <>
