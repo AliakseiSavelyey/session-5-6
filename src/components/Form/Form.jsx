@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Form.css';
+import './Form.scss';
 
 class Form extends Component {
   state = {
@@ -19,10 +19,8 @@ class Form extends Component {
   // для Сабмита формы делаем отдельный метод
   handleSubmit = e => {
     e.preventDefault();
-
     // Получаем данные из формы при сабмите
     this.props.giveMeData(this.state);
-
     // Вызываем метод reset для очистки формы после сабмита
     this.reset();
   };

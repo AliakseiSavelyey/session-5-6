@@ -5,6 +5,7 @@ import ColorPicker from 'components/ColorPicker';
 import TodoList from 'components/TodoList';
 import initialTodos from './data/todos.json';
 import Form from 'components/Form';
+import TodoEditor from 'components/TodoEditor';
 
 const colorPickerOptions = [
   { label: 'red', color: '#F44336' },
@@ -36,6 +37,21 @@ class App extends Component {
   formSubmitHandler = e => {
     console.log(e);
   };
+
+  toggleCompleted = todoId => {
+    this.setState(prevState => ({
+      todos: prevState.todos.map(todo => {
+        if (todo.id === todoId) {
+          return {
+            ...todo,
+            completed: !todo.completed,
+          };
+        }
+        return todo;
+      }),
+    }));
+  };
+
   render() {
     const { todos } = this.state;
 
@@ -50,16 +66,13 @@ class App extends Component {
         <h2>Как установить SASS пути в проекте</h2>
         <h2>Генерация Id элементов в форме</h2>
         <br />
-
         {/* Ввод данных в инпут */}
         <input
           type="text"
           value={this.state.inputValue}
           onChange={this.handleInputChange}
         ></input>
-
         <Form giveMeData={this.formSubmitHandler} />
-
         <Counter initialValue={10} />
         <Dropdown />
         <ColorPicker options={colorPickerOptions} />
@@ -67,7 +80,12 @@ class App extends Component {
           <p>Общее кол-во:{todos.length}</p>
           <p>Кол-во выполненых:{completedTodos}</p>
         </div>
-        <TodoList todos={todos} onDeleteTodo={this.deleteTodo} />
+        <TodoList
+          todos={todos}
+          onDeleteTodo={this.deleteTodo}
+          onToggleCompleted={this.toggleCompleted}
+        />
+        <TodoEditor />
       </>
     );
   }

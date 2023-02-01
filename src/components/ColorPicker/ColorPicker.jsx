@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import './ColorPicker.css';
+// Библиотека classNames сейчас используется с scss, усли нужно использовать библиотеку с css-modules то смотреть документацию на сайте(пример: import classNames=require('classnames/bind') дальше по инструкции)
+import classNames from 'classnames';
+import './ColorPicker.scss';
 
 class ColorPicker extends Component {
   state = {
@@ -12,11 +14,17 @@ class ColorPicker extends Component {
   };
 
   makeOptionClassName = index => {
-    const optionClasses = ['ColorPicker-option'];
-    if (index === this.state.activeOptionIdx) {
-      optionClasses.push('ColorPicker-option-active');
-    }
-    return optionClasses.join(' ');
+    // Добавляем класс по условию с помощью БИБЛИОТЕКИ classNames(первым идет дефолтные стили(сколько угодно штук, потом в обьекте идут те которые нужно добавить, а потом условие при котором нужно добавить))
+    return classNames('ColorPicker-option', {
+      'ColorPicker-option-active': index === this.state.activeOptionIdx,
+    });
+
+    // Тут описано добавление класса по условию БЕЗ библиотеки classNames
+    // const optionClasses = ['ColorPicker-option'];
+    // if (index === this.state.activeOptionIdx) {
+    //   optionClasses.push('ColorPicker-option-active');
+    // }
+    // return optionClasses.join(' ');
   };
 
   render() {

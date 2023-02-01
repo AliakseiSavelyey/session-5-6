@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Controls from './Controls';
-import './Counter.css';
+import './Counter.scss';
 
 class Counter extends Component {
   // передает статический началбный пропс:

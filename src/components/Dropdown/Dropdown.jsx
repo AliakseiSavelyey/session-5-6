@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Dropdown.css';
+import './Dropdown.scss';
 
 class Dropdown extends Component {
   state = {
