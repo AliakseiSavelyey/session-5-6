@@ -6,6 +6,7 @@ import TodoList from 'components/TodoList';
 import initialTodos from './data/todos.json';
 import Form from 'components/Form';
 import TodoEditor from 'components/TodoEditor';
+import shortid from 'shortid';
 
 const colorPickerOptions = [
   { label: 'red', color: '#F44336' },
@@ -20,6 +21,17 @@ class App extends Component {
   state = {
     todos: initialTodos,
     inputValue: '',
+  };
+
+  addTodo = e => {
+    const todo = {
+      id: shortid.generate(),
+      text: e,
+      completed: false,
+    };
+    this.setState(prevState => ({
+      todos: [todo, ...prevState.todos],
+    }));
   };
 
   deleteTodo = todoId => {
@@ -85,7 +97,7 @@ class App extends Component {
           onDeleteTodo={this.deleteTodo}
           onToggleCompleted={this.toggleCompleted}
         />
-        <TodoEditor />
+        <TodoEditor onSubmit={this.addTodo} />
       </>
     );
   }
