@@ -6,6 +6,7 @@ class Form extends Component {
     name: '',
     secondName: '',
     licence: false,
+    experience: 'Junior',
   };
 
   // Форма, используем вычисляемые свойство обьекта(например: const a='qwe'-Пишем: [a]:5-получаем {qwe:5}). Сделали универсальный метод, каждый инпут получает то что мы вводим
@@ -57,6 +58,40 @@ class Form extends Component {
             onChange={this.handleChange}
           />
         </label>
+
+        {/* Делаем радио кнопки */}
+        <p>Ваш уровень:</p>
+        <label>
+          <input
+            type="radio"
+            name="experience"
+            value="Junior"
+            onChange={this.handleChange}
+            checked={this.state.experience === 'Junior'}
+          />
+          Junior
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="experience"
+            value="Middle"
+            onChange={this.handleChange}
+            checked={this.state.experience === 'Middle'}
+          />
+          Middle
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="experience"
+            value="Senior"
+            onChange={this.handleChange}
+            checked={this.state.experience === 'Senior'}
+          />
+          Senior
+        </label>
+        <br />
 
         {/* делаем чекбокс */}
         <label>
