@@ -6,6 +6,7 @@ import TodoList from 'components/TodoList';
 import initialTodos from './data/todos.json';
 import Form from 'components/Form';
 import TodoEditor from 'components/TodoEditor';
+import Filter from 'components/Filter';
 import shortid from 'shortid';
 
 const colorPickerOptions = [
@@ -21,6 +22,7 @@ class App extends Component {
   state = {
     todos: initialTodos,
     inputValue: '',
+    filter: '',
   };
 
   addTodo = e => {
@@ -64,12 +66,21 @@ class App extends Component {
     }));
   };
 
+  changeFilter = e => {
+    this.setState({ filter: e.currentTarget.value });
+  };
+
   render() {
-    const { todos } = this.state;
+    const { todos, filter } = this.state;
 
     const completedTodos = todos.reduce(
       (acc, todo) => (todo.completed ? acc + 1 : acc),
       0,
+    );
+    const normalizedFilter = this.state.filter.toLowerCase();
+
+    const visibleTodos = this.state.todos.filter(todo =>
+      todo.text.toLowerCase().includes(normalizedFilter),
     );
 
     return (
@@ -78,7 +89,7 @@ class App extends Component {
         <h2>Как установить SASS пути в проекте</h2>
         <h2>Генерация Id элементов в форме</h2>
         <br />
-        {/* Ввод данных в инпут */}
+        Ввод данных в инпут
         <input
           type="text"
           value={this.state.inputValue}
@@ -92,8 +103,9 @@ class App extends Component {
           <p>Общее кол-во:{todos.length}</p>
           <p>Кол-во выполненых:{completedTodos}</p>
         </div>
+        <Filter value={filter} onChange={this.changeFilter} />
         <TodoList
-          todos={todos}
+          todos={visibleTodos}
           onDeleteTodo={this.deleteTodo}
           onToggleCompleted={this.toggleCompleted}
         />
