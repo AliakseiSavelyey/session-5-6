@@ -6,8 +6,9 @@ import TodoList from 'components/TodoList';
 import initialTodos from './data/todos.json';
 import Form from 'components/Form';
 import TodoEditor from 'components/TodoEditor';
-import Filter from 'components/Filter';
+import Filter from 'components/TodoFilter';
 import shortid from 'shortid';
+import Modal from 'components/Modal';
 
 const colorPickerOptions = [
   { label: 'red', color: '#F44336' },
@@ -23,6 +24,7 @@ class App extends Component {
     todos: initialTodos,
     inputValue: '',
     filter: '',
+    showModal: false,
   };
 
   addTodo = e => {
@@ -84,6 +86,12 @@ class App extends Component {
     );
   };
 
+  toggleModal = () => {
+    this.setState(state => ({
+      showModal: !state.showModal,
+    }));
+  };
+
   render() {
     const { todos, filter } = this.state;
     const completedTodos = this.calculateCompletedTodos();
@@ -94,6 +102,23 @@ class App extends Component {
         <h1>Состояние компонента и Формы</h1>
         <h2>Как установить SASS пути в проекте</h2>
         <h2>Генерация Id элементов в форме</h2>
+        <br />
+        <button type="button" onClick={this.toggleModal}>
+          Открыть модалку
+        </button>
+        {this.state.showModal && (
+          <Modal closeModal={this.toggleModal}>
+            <h1>Это контент модалки прописан в App как children</h1>
+            <p>
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error
+              rem esse, sapiente voluptate quia quo maiores facilis minus
+              placeat quis.
+            </p>
+            <button type="button" onClick={this.toggleModal}>
+              Закрыть
+            </button>
+          </Modal>
+        )}
         <br />
         Ввод данных в инпут
         <input
