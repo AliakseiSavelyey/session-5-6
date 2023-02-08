@@ -12,6 +12,8 @@ import Modal from 'components/Modal';
 import Clock from 'components/Clock';
 import Tabs from 'components/Tabs';
 import tabs from 'data/tabs.json';
+import IconButton from './components/IconButton/IconButton';
+import { ReactComponent as AddIcon } from './icons/add.svg';
 
 const colorPickerOptions = [
   { label: 'red', color: '#F44336' },
@@ -109,20 +111,21 @@ class App extends Component {
 
     return (
       <>
-        <Tabs items={tabs} />
         <br />
         <h1>Состояние компонента и Формы</h1>
         <h2>Как установить SASS пути в проекте</h2>
         <h2>Генерация Id элементов в форме</h2>
         <br />
+        <Tabs items={tabs} />
         <button type="button" onClick={this.toggleTime}>
           Открыть/Скрыть время
         </button>
         {this.state.showTime && <Clock></Clock>}
         <br />
-        <button type="button" onClick={this.toggleModal}>
-          Открыть модалку
-        </button>
+        <IconButton onClick={this.toggleModal} aria-label="Добавить todo">
+          модалка
+          <AddIcon width="40" height="40" fill="#fff" />
+        </IconButton>
         {this.state.showModal && (
           <Modal closeModal={this.toggleModal}>
             <h1>Это контент модалки прописан в App как children</h1>
