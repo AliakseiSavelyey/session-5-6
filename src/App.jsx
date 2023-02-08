@@ -42,6 +42,8 @@ class App extends Component {
     this.setState(prevState => ({
       todos: [todo, ...prevState.todos],
     }));
+
+    this.toggleModal();
   };
 
   deleteTodo = todoId => {
@@ -128,18 +130,21 @@ class App extends Component {
         </IconButton>
         {this.state.showModal && (
           <Modal closeModal={this.toggleModal}>
-            <h1>Это контент модалки прописан в App как children</h1>
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error
-              rem esse, sapiente voluptate quia quo maiores facilis minus
-              placeat quis.
-            </p>
-            <button type="button" onClick={this.toggleModal}>
-              Закрыть
-            </button>
+            <TodoEditor onSubmit={this.addTodo} />
           </Modal>
         )}
+        <TodoList
+          todos={visibleTodos}
+          onDeleteTodo={this.deleteTodo}
+          onToggleCompleted={this.toggleCompleted}
+        />
+        <Filter value={filter} onChange={this.changeFilter} />
         <br />
+        <div>
+          <p>Общее кол-во:{todos.length}</p>
+          <p>Кол-во выполненых:{completedTodos}</p>
+        </div>
+        <Counter initialValue={10} />
         Ввод данных в инпут
         <input
           type="text"
@@ -147,20 +152,8 @@ class App extends Component {
           onChange={this.handleInputChange}
         ></input>
         <Form giveMeData={this.formSubmitHandler} />
-        <Counter initialValue={10} />
         <Dropdown />
         <ColorPicker options={colorPickerOptions} />
-        <div>
-          <p>Общее кол-во:{todos.length}</p>
-          <p>Кол-во выполненых:{completedTodos}</p>
-        </div>
-        <Filter value={filter} onChange={this.changeFilter} />
-        <TodoList
-          todos={visibleTodos}
-          onDeleteTodo={this.deleteTodo}
-          onToggleCompleted={this.toggleCompleted}
-        />
-        <TodoEditor onSubmit={this.addTodo} />
       </>
     );
   }
