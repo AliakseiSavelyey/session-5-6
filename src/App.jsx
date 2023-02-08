@@ -9,6 +9,9 @@ import TodoEditor from 'components/TodoEditor';
 import Filter from 'components/TodoFilter';
 import shortid from 'shortid';
 import Modal from 'components/Modal';
+import Clock from 'components/Clock';
+import Tabs from 'components/Tabs';
+import tabs from 'data/tabs.json';
 
 const colorPickerOptions = [
   { label: 'red', color: '#F44336' },
@@ -25,6 +28,7 @@ class App extends Component {
     inputValue: '',
     filter: '',
     showModal: false,
+    showTime: false,
   };
 
   addTodo = e => {
@@ -92,6 +96,12 @@ class App extends Component {
     }));
   };
 
+  toggleTime = () => {
+    this.setState(state => ({
+      showTime: !state.showTime,
+    }));
+  };
+
   render() {
     const { todos, filter } = this.state;
     const completedTodos = this.calculateCompletedTodos();
@@ -99,9 +109,16 @@ class App extends Component {
 
     return (
       <>
+        <Tabs items={tabs} />
+        <br />
         <h1>Состояние компонента и Формы</h1>
         <h2>Как установить SASS пути в проекте</h2>
         <h2>Генерация Id элементов в форме</h2>
+        <br />
+        <button type="button" onClick={this.toggleTime}>
+          Открыть/Скрыть время
+        </button>
+        {this.state.showTime && <Clock></Clock>}
         <br />
         <button type="button" onClick={this.toggleModal}>
           Открыть модалку
